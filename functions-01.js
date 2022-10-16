@@ -16,7 +16,9 @@
  * example: 'Buzz Lightyear' returns 'Lightyear, Buzz'
  */
 function nameShuffle(str) {
-  // write your code here & return value
+  /* return 'Doe, John'; */
+  const strArray = str.split(' ');
+  return `${strArray[1]}, ${strArray[0]}`;
 }
 
 /**
@@ -34,43 +36,59 @@ function nameShuffle(str) {
  * example: '&', '&' returns true
  */
 function isStrangePair(str1, str2) {
-  // write your code here & return value
+  /* return true; */
+  const str1Array = str1.split('');
+  const str2Array = str2.split('');
+  return (str2Array[str2Array.length - 1] === str1Array[0]);
 }
 
 /**
- * Returns the number from a string with a % sign at the end
- * @param {string} percent - string with an ending % character
- * @returns {number} - the number of the percent
- * example: '10%' returns 0.1
- * example: '100%' returns 1
- * example: '98.6%' returns 0.986
- */
+  * Returns the number from a string with a % sign at the end
+  * @param {string} percent - string with an ending % character
+  * @returns {number} - the number of the percent
+  * example: '10%' returns 0.1
+  * example: '100%' returns 1
+  * example: '98.6%' returns 0.986
+  */
 function convertToDecimal(percent) {
-  // write your code here & return value
+  /*  return 0.33; */
+  return ((percent.split('%')[0]) / 100);
 }
 
 /**
- * Returns true if two arrays sum up to the same number
- * @param {array} a1 - first array of numbers to compare
- * @param {array} a2 - second array of numbers to compare
- * @returns {boolean}
- * example: [1, 2, 3, 4], [4, 3, 2, 1] returns true
- * example: [0, 0, 0, 0, 0], [1, 1, 1, 1] returns false
- * example: [1, 2, 3, 4], [4, 3, 2, 1, 5] returns false
- */
+     * Returns true if two arrays sum up to the same number
+     * @param {array} a1 - first array of numbers to compare
+     * @param {array} a2 - second array of numbers to compare
+     * @returns {boolean}
+     * example: [1, 2, 3, 4], [4, 3, 2, 1] returns true
+     * example: [0, 0, 0, 0, 0], [1, 1, 1, 1] returns false
+     * example: [1, 2, 3, 4], [4, 3, 2, 1, 5] returns false
+     */
 function checkSameSum(a1, a2) {
-  // write your code here & return value
+  /* return true */
+  let sum1 = 0;
+  let sum2 = 0;
+  for (let i = 0; i < a1.length; i += 1) {
+    sum1 += a1[i];
+  }
+  for (let i = 0; i < a2.length; i += 1) {
+    sum2 += a2[i];
+  }
+  return sum1 === sum2;
 }
 
 /**
- * Saves the username for later use
- * @param {string} name - a username
- * @returns {function} - a function that returns the username
- * example: saveUsername('John') returns a function that returns 'John'
- * must use a closure to save the username
- */
+     * Saves the username for later use
+     * @param {string} name - a username
+     * @returns {function} - a function that returns the username
+     * example: saveUsername('John') returns a function that returns 'John'
+     * must use a closure to save the username
+     */
 function saveLogin(name) {
-  // write your code here
+  /* no idea if this one is right, because the other ones don't seem to be checking properly */
+  return function returnUsername() {
+    return name;
+  };
 }
 
 module.exports = {
@@ -78,5 +96,5 @@ module.exports = {
   isStrangePair,
   convertToDecimal,
   checkSameSum,
-  saveLogin
+  saveLogin,
 };
