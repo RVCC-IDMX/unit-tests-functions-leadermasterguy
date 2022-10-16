@@ -140,7 +140,8 @@ const store = {
    */
   addItemQuantity(itemName, price, quantity) {
     if (this.isItemInStore(itemName) === true) {
-      return inventory[inventory.findIndex((item) => item.name === itemName)].quantity + quantity;
+      inventory[inventory.findIndex((item) => item.name === itemName)].quantity += quantity;
+      return inventory[inventory.findIndex((item) => item.name === itemName)].quantity;
     }
     const item = { name: itemName, price, quantity };
     inventory.push(item);
@@ -157,7 +158,13 @@ const store = {
    * must use isItemInStore() method in this object
    */
   removeItemQuantity(itemName, quantity) {
-    // write your code here & return value
+    if (this.isItemInStore(itemName) === true) {
+      if ((inventory[inventory.findIndex((item) => item.name === itemName)].quantity - quantity) > -1) {
+        inventory[inventory.findIndex((item) => item.name === itemName)].quantity -= quantity;
+        return inventory[inventory.findIndex((item) => item.name === itemName)].quantity;
+      }
+    }
+    return -1;
   },
   /**
    * Returns the total of all the items in the store
@@ -166,7 +173,8 @@ const store = {
    * must use the reduce() array method
    */
   getTotalValue() {
-    // write your code here & return value
+    const i = inventory.reduce((currentTotal, item) => (item.price * item.quantity) + currentTotal, 0);
+    return i;
   },
 };
 
