@@ -14,31 +14,22 @@
 /*
  ? The inventory array is outside the object. That makes its scope global
  ? to the code in this file.
-
  ? An object called store is then being created with along its methods.
  ? At the end of the file, the object is being exported.
-
  ? This makes the object public to whatever code imports it (using the require()
  ? function in CommonJS).
-
  ? The inventory could be a property of the object. Why isn't it?
-
  ? Since the store object is being exported, any property of the store can be
  ? changed by any other part of a program that imports the store object.
-
  ? In an attempt to prevent the inventory from accidentally being corrupted,
  ? the inventory array is outside store, making it private (not exported).
-
  ? The object has methods that use the inventory array in different ways.
  ? Your job is to write the methods.
-
  ? The methods are called in the test file.
  ? There are fewer examples in this file because you can look at the tests
  ? to give you examples.
-
  ? NOTE: To access a property from within an object, you can use the this keyword.
  ? You'll have to use this to solve some of the problems.
-
  ? [The attempt to prevent corruption is not fail-proof. To do better, we need to
  ? do more sophisticated object handling, like freezing the store object. But that
  ? is beyond the scope of this assignment.]
@@ -69,7 +60,7 @@ const store = {
    * @returns {string} - the name of the store
    */
   getName() {
-    // write your code here & return value
+    return this.name;
   },
   /**
    * Returns the inventory of the store
@@ -77,7 +68,7 @@ const store = {
    * @returns {array} - the inventory of the store
    */
   getInventory() {
-    // write your code here & return value
+    return inventory;
   },
   /**
    * Returns an arrays of most expensive items in inventory
@@ -86,7 +77,7 @@ const store = {
    * @return {array} items - the array of items that are filtered
    */
   getExpensiveItems(minPrice) {
-    // write your code here & return value
+    return inventory.filter((item) => item.price >= minPrice);
   },
   /**
    * Returns an array of item names in store
@@ -94,7 +85,7 @@ const store = {
    * @return {array} items - the array of items that are filtered
    */
   getStoreItems() {
-    // write your code here & return value
+    return inventory.map((item) => item.name);
   },
   /**
    * Returns true if the item is in the store
@@ -104,7 +95,7 @@ const store = {
    * false otherwise
    */
   isItemInStore(itemName) {
-    // write your code here & return value
+    return (inventory.map((item) => item.name)).includes(itemName);
   },
   /**
    * Returns the price of the item
@@ -115,7 +106,10 @@ const store = {
    * must use isItemInStore() method in this object
    */
   getItemPrice(itemName) {
-    // write your code here & return value
+    if (this.isItemInStore(itemName) === true) {
+      return inventory.find((item) => item.name === itemName).price;
+    }
+    return -1;
   },
 
   /**
@@ -127,7 +121,10 @@ const store = {
    * must use isItemInStore() method in this object
    */
   getItemQuantity(itemName) {
-    // write your code here & return value
+    if (this.isItemInStore(itemName) === true) {
+      return inventory.find((item) => item.name === itemName).quantity;
+    }
+    return -1;
   },
 
   /**
@@ -142,7 +139,12 @@ const store = {
    * must use isItemInStore() method in this object
    */
   addItemQuantity(itemName, price, quantity) {
-    // write your code here & return value
+    if (this.isItemInStore(itemName) === true) {
+      return inventory[inventory.findIndex((item) => item.name === itemName)].quantity + quantity;
+    }
+    const item = { name: itemName, price, quantity };
+    inventory.push(item);
+    return item.quantity;
   },
   /**
    * Removes a certain quantity of an item from the store
