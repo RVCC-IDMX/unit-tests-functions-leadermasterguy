@@ -159,7 +159,8 @@ const store = {
    */
   removeItemQuantity(itemName, quantity) {
     if (this.isItemInStore(itemName) === true) {
-      if ((inventory[inventory.findIndex((item) => item.name === itemName)].quantity - quantity) > -1) {
+      const value = inventory[inventory.findIndex((item) => item.name === itemName)].quantity;
+      if ((value - quantity) > -1) {
         inventory[inventory.findIndex((item) => item.name === itemName)].quantity -= quantity;
         return inventory[inventory.findIndex((item) => item.name === itemName)].quantity;
       }
@@ -173,8 +174,7 @@ const store = {
    * must use the reduce() array method
    */
   getTotalValue() {
-    const i = inventory.reduce((currentTotal, item) => (item.price * item.quantity) + currentTotal, 0);
-    return i;
+    return inventory.reduce((currentTotal, item) => (item.price * item.quantity) + currentTotal, 0);
   },
 };
 
